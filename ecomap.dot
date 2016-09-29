@@ -1,0 +1,45 @@
+digraph ecomap{
+  // 核心圈
+  currency[label="货币"];
+  interest[label="利息"];
+  capital[label="资产"];
+  industry[label="实业"];
+
+  currency->capital;
+  interest->capital;
+  currency->industry;
+  interest->industry;
+
+  industry->currency;
+  interest->currency;
+
+  // 利息
+  ir[label="利率"];
+  rrr[label="准备金率"];
+
+  ir->interest[style="dashed"];
+  rrr->interest[style="dashed"];
+
+  // 实业
+  ntb[label="新三板"];
+  ppp[label="ppp"];
+
+  ntb->industry[style="dashed"];
+  ppp->industry[style="dashed"];
+
+  // 资产
+  stock[label="股市"];
+  property[label="楼市"];
+  cpi[label="CPI"];
+
+  stock->capital[style="dashed"];
+  property->capital[style="dashed"];
+  cpi->capital[style="dashed"];
+
+  // 货币
+  er[label="汇率"];
+  m2[label="M2"];
+
+  er->currency[style="dashed"];
+  m2->currency[style="dashed"];
+}
