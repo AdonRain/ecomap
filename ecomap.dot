@@ -1,45 +1,77 @@
 digraph ecomap{
-  // 核心圈
-  currency[label="货币"];
-  interest[label="利息"];
-  capital[label="资产"];
-  industry[label="实业"];
+  edge[color="green"];
 
-  currency->capital;
-  interest->capital;
-  currency->industry;
-  interest->industry;
+  RealGDP[style="filled", color="gold"];
 
-  industry->currency;
-  interest->currency;
+  Investment[style="filled", color="blue", fontcolor="white"];
+  Consume[style="filled", color="blue", fontcolor="white"];
+  GovExp[style="filled", color="blue", fontcolor="white"];
+  NetExports[style="filled", color="blue", fontcolor="white"];
 
-  // 利息
-  ir[label="利率"];
-  rrr[label="准备金率"];
+  Employment[style="filled", color="indigo", fontcolor="white"];
+  Money[style="filled", color="indigo", fontcolor="white"];
 
-  ir->interest[style="dashed"];
-  rrr->interest[style="dashed"];
+  CPI[style="filled", color="cyan"];
+  Interest[style="filled", color="cyan"];
 
-  // 实业
-  ntb[label="新三板"];
-  ppp[label="ppp"];
+  Investment->NominalGDP;
+  Consume->NominalGDP;
+  GovExp->NominalGDP;
+  NetExports->NominalGDP;
 
-  ntb->industry[style="dashed"];
-  ppp->industry[style="dashed"];
+  CPI->RealGDP[color="red"];
+  CPI->Savings[color="red"];
+  CPI->RealInterest[color="red"];
 
-  // 资产
-  stock[label="股市"];
-  property[label="楼市"];
-  cpi[label="CPI"];
+  Interest->RealInterest;
+  Interest->Investment[color="red"];
+  Interest->Consume[color="red"];
 
-  stock->capital[style="dashed"];
-  property->capital[style="dashed"];
-  cpi->capital[style="dashed"];
+  Employment->Wages;
+  Employment->Consume;
 
-  // 货币
-  er[label="汇率"];
-  m2[label="M2"];
+  Investment->Employment;
+  Investment->Supply;
 
-  er->currency[style="dashed"];
-  m2->currency[style="dashed"];
+  Consume->Utilized;
+  Consume->Price;
+  Consume->Imports;
+  Consume->Exports[color="red"];
+
+  Utilized->Investment;
+  Utilized->Profit;
+  Utilized->Supply;
+
+  Price->CPI;
+  Price->Consume[color="red"];
+
+  Supply->Exports;
+  Supply->Imports[color="red"];
+  Supply->Price[color="red"];
+
+  Savings->Interest;
+  Savings->Money[color="red"];
+  Savings->Investment[color="red"];
+  Savings->Consume[color="red"];
+
+  PrintsMoney->Money;
+  PrintsMoney->GovBonds;
+
+  GovBonds->GovRev;
+  GovBonds->Interest;
+
+  GovRev->GovExp;
+  Wages->Consume;
+  Profit->Employment;
+  NominalGDP->RealGDP;
+  Exports->NetExports;
+  RealInterest->Savings;
+  Imports->NetExports[color="red"];
+  Money->Interest[color="red"];
+
+  HousingPrice[style="dashed", color="green"];
+  HousingPrice->Investment[style="dashed", color="red"];
+  HousingPrice->Profit[style="dashed", color="red"];
+  HousingPrice->Savings[style="dashed"];
+  HousingPrice->GovRev[style="dashed"];
 }
