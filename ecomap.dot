@@ -5,7 +5,7 @@ digraph ecomap{
 
   Investment[style="filled", color="blue", fontcolor="white"];
   Consume[style="filled", color="blue", fontcolor="white"];
-  GovExp[style="filled", color="blue", fontcolor="white"];
+  GovernmentSpending[style="filled", color="blue", fontcolor="white"];
   NetExports[style="filled", color="blue", fontcolor="white"];
 
   Employment[style="filled", color="indigo", fontcolor="white"];
@@ -13,17 +13,21 @@ digraph ecomap{
 
   CPI[style="filled", color="cyan"];
   Interest[style="filled", color="cyan"];
+  ForeignExchange[style="filled", color="cyan"];
 
   Investment->NominalGDP;
   Consume->NominalGDP;
-  GovExp->NominalGDP;
+  GovernmentSpending->NominalGDP;
   NetExports->NominalGDP;
 
+  ForeignExchange->Imports;
+  ForeignExchange->Exports[color="red"];
+
   CPI->RealGDP[color="red"];
-  CPI->Savings[color="red"];
   CPI->RealInterest[color="red"];
 
   Interest->RealInterest;
+  Interest->ForeignExchange;
   Interest->Investment[color="red"];
   Interest->Consume[color="red"];
 
@@ -37,6 +41,7 @@ digraph ecomap{
   Consume->Price;
   Consume->Imports;
   Consume->Exports[color="red"];
+  Consume->Savings[color="red"];
 
   Utilized->Investment;
   Utilized->Profit;
@@ -49,29 +54,29 @@ digraph ecomap{
   Supply->Imports[color="red"];
   Supply->Price[color="red"];
 
-  Savings->Interest;
-  Savings->Money[color="red"];
-  Savings->Investment[color="red"];
-  Savings->Consume[color="red"];
-
   PrintsMoney->Money;
   PrintsMoney->GovBonds;
 
   GovBonds->GovRev;
   GovBonds->Interest;
 
-  GovRev->GovExp;
+  Tax->GovRev;
+  Tax->Consume[color="red"];
+  Tax->Investment[color="red"];
+
   Wages->Consume;
+  Savings->Money;
   Profit->Employment;
   NominalGDP->RealGDP;
   Exports->NetExports;
   RealInterest->Savings;
-  Imports->NetExports[color="red"];
+  GovRev->GovernmentSpending;
   Money->Interest[color="red"];
+  Imports->NetExports[color="red"];
 
   HousingPrice[style="dashed", color="green"];
   HousingPrice->Investment[style="dashed", color="red"];
   HousingPrice->Profit[style="dashed", color="red"];
-  HousingPrice->Savings[style="dashed"];
+  HousingPrice->Savings[style="dashed", color="red"];
   HousingPrice->GovRev[style="dashed"];
 }
